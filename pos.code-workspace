@@ -1,0 +1,38 @@
+{
+  "folders": [
+    {
+      "name": "Nuxt",
+      "path": "./app"
+    },
+    {
+      "name": "root",
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "vue.volar",
+      "esbenp.prettier-vscode",
+      "eamodio.gitlens",
+      "ms-vscode-remote.remote-containers",
+      "digitalbrainstem.javascript-ejs-support"
+    ]
+  },
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.tabWidth": 2,
+    "prettier.useTabs": false,
+    "html.validate.scripts": false,
+    "[javascript]": {
+      "editor.tabSize": 2
+    },
+    "[vue]": {
+      "editor.tabSize": 2
+    },
+    "[json]": {
+      "editor.tabSize": 2
+    },
+    "CodeGPT.apiKey": "OpenAI"
+  }
+}
