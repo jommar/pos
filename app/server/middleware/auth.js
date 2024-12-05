@@ -8,7 +8,7 @@ export default defineEventHandler((event) => {
   console.log(`New request to: ${method} ${url}`);
 
   // Define public routes that don't require authentication
-  const publicRoutes = ["/api/auth/login", "/api/register"];
+  const publicRoutes = ["/api/auth/login", "/api/auth/logout", "/api/register"];
 
   // Allow public routes to proceed without authentication
   if (publicRoutes.includes(url)) {
@@ -20,6 +20,7 @@ export default defineEventHandler((event) => {
   const token = cookies?.auth_token;
 
   if (!token) {
+    console.error("Invalid token");
     throw createError({
       statusCode: 401,
       message: "Unauthorized",
@@ -33,6 +34,7 @@ export default defineEventHandler((event) => {
     // Attach decoded token to the event context for use in handlers
     event.context.auth = decoded;
   } catch (err) {
+    console.error(err.message);
     throw createError({
       statusCode: 401,
       message: "Unauthorized",

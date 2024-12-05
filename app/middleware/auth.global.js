@@ -1,7 +1,9 @@
 import { useAuthStore } from "~/stores/auth";
+import { jwtDecode } from "jwt-decode";
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  if (to.path === "/login") return;
+  const publicPath = ["/login", "/logout"];
+  if (publicPath.includes(to.path)) return;
 
   const authStore = useAuthStore();
 
@@ -12,5 +14,13 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
   if (to.path === "/register" && !authStore.me.roles.superadmin) {
     throw new Error("Only superadmin have access to this page!");
+  }
+
+  const decoded = jwtDecode(authStore.token);
+  const currentTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+
+  if (decoded.exp && decoded.exp < currentTimeInSeconds) {
+    console.error("Token has expired");
+    return navigateTo("/logout"); // Redirect to login if expired
   }
 });
