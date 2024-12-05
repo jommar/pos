@@ -1,7 +1,7 @@
 <template>
   <v-app class="d-flex flex-column h-100">
     <!-- Header -->
-    <v-app-bar app flat class="bg-primary text-white">
+    <v-app-bar app flat class="bg-primary text-white" v-show="showHeaders">
       <template #default>
         <v-container fluid class="d-flex">
           <NuxtLink to="/" class="text-decoration-none text-white">
@@ -32,15 +32,21 @@
     <Drawer />
 
     <!-- Footer -->
-    <v-footer app flat class="bg-secondary text-white">
-      <template #default> My Footer </template>
+    <v-footer app flat class="bg-secondary text-white" v-show="showHeaders">
+      <template #default>
+        <div class="d-flex w-100">
+          <v-spacer />
+          <v-btn to="/logout" color="grey-darken-4" prepend-icon="mdi-logout"
+            >Logout</v-btn
+          >
+        </div>
+      </template>
     </v-footer>
   </v-app>
 </template>
 
 <script setup>
 import { useDrawerStore } from "~/stores";
-
 const drawerStore = useDrawerStore();
 
 const routeNameMap = {
@@ -52,6 +58,10 @@ const routeNameMap = {
 const toggleDrawer = () => {
   drawerStore.toggle();
 };
+
+const showHeaders = computed(() => {
+  return useRoute()?.name !== "login";
+});
 
 const routeName = computed(() => {
   return routeNameMap[useRoute().name] || useRoute().name;
