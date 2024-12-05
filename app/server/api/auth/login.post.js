@@ -37,12 +37,14 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    const roles = user.roles || [];
+
     // Generate JWT token
     const token = jwt.sign(
       {
         id: user._id,
         username: user.username,
-        roles: user.roles || [],
+        roles,
       },
       process.env.JWT_SECRET,
       {
@@ -53,6 +55,7 @@ export default defineEventHandler(async (event) => {
     return {
       success: true,
       token,
+      roles,
     };
   } catch (err) {
     // Log unexpected errors for debugging
