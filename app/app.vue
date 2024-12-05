@@ -3,7 +3,14 @@
     <!-- Header -->
     <v-app-bar app flat class="bg-primary text-white">
       <template #default>
-        <v-container fluid> My Header </v-container>
+        <v-container fluid class="d-flex">
+          <NuxtLink to="/" class="text-decoration-none text-white">
+            <v-icon>mdi-home</v-icon>
+          </NuxtLink>
+          <div class="flex-grow-1 text-center mx-4">
+            {{ routeName }}
+          </div>
+        </v-container>
       </template>
       <template #append>
         <v-btn icon @click="toggleDrawer">
@@ -36,8 +43,17 @@ import { useDrawerStore } from "~/stores";
 
 const drawerStore = useDrawerStore();
 
+const routeNameMap = {
+  index: "Dashboard",
+  inventory: "Inventory Management",
+};
+
 // Method to toggle drawer
 const toggleDrawer = () => {
   drawerStore.toggle();
 };
+
+const routeName = computed(() => {
+  return routeNameMap[useRoute().name] || useRoute().name;
+});
 </script>
