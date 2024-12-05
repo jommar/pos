@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       success: true,
-      message: `Item with ID ${body.id} deleted successfully`,
+      ...body,
     };
   } catch (error) {
     console.error("Failed to delete item:", error);
