@@ -28,8 +28,10 @@
 
 <script setup>
 import { useDrawerStore } from "~/stores";
+import { useAuthStore } from "~/stores";
 
 const drawerStore = useDrawerStore();
+const authStore = useAuthStore();
 
 const modules = [
   { name: "Dashboard", icon: "mdi-view-dashboard", path: "/" },
@@ -38,4 +40,12 @@ const modules = [
   { name: "Reports", icon: "mdi-chart-bar", path: "/reports" },
   { name: "Settings", icon: "mdi-cog", path: "/settings" },
 ];
+
+if (authStore.me.roles.superadmin) {
+  modules.push({
+    name: "Register",
+    icon: "mdi-account-plus",
+    path: "/register",
+  });
+}
 </script>

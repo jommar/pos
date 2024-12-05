@@ -9,4 +9,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (!authStore.token) {
     return navigateTo("/login");
   }
+
+  if (to.path === "/register" && !authStore.me.roles.superadmin) {
+    throw new Error("Only superadmin have access to this page!");
+  }
 });
