@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "10h",
+        expiresIn: process.env.JWT_EXPIRY,
       }
     );
 
