@@ -12,9 +12,12 @@ export const ERRORS = {
   UNAUTHORIZED: "Unauthorized",
   GENERIC: "An internal server error occurred. Please contact support.",
   DB_CONN: "MongoDB connection details are missing in runtime config",
+  USERNAME_EXISTS: "Username already exists",
 };
 
 export const ROUTE_NAMES_MAP = {
   index: "Dashboard",
   inventory: "Inventory Management",
 };
+
+export const USER_ROLES = ["admin", "user"];

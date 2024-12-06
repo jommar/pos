@@ -20,4 +20,13 @@ export const actions = {
     const authCookie = useCookie("auth_token");
     authCookie.value = null;
   },
+  async register(credentials) {
+    const res = await axios.post("/api/auth/register", credentials);
+    return res.data;
+  },
+
+  async fetchUsers() {
+    const res = await axios.get("/api/users");
+    return res.data.users;
+  },
 };
