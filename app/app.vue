@@ -36,9 +36,9 @@
       <template #default>
         <div class="d-flex w-100">
           <v-spacer />
-          <v-btn to="/logout" color="grey-darken-4" prepend-icon="mdi-logout"
-            >Logout</v-btn
-          >
+          <v-btn to="/logout" color="grey-darken-4" prepend-icon="mdi-logout">
+            Logout
+          </v-btn>
         </div>
       </template>
     </v-footer>
@@ -47,12 +47,8 @@
 
 <script setup>
 import { useDrawerStore } from "~/stores";
+import { ROUTE_NAMES_MAP } from "./server/constants";
 const drawerStore = useDrawerStore();
-
-const routeNameMap = {
-  index: "Dashboard",
-  inventory: "Inventory Management",
-};
 
 // Method to toggle drawer
 const toggleDrawer = () => {
@@ -64,6 +60,6 @@ const isLoggedIn = computed(() => {
 });
 
 const routeName = computed(() => {
-  return routeNameMap[useRoute().name] || useRoute().name;
+  return ROUTE_NAMES_MAP[useRoute().name] || useRoute().name;
 });
 </script>

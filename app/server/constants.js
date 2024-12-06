@@ -13,3 +13,8 @@ export const ERRORS = {
   GENERIC: "An internal server error occurred. Please contact support.",
   DB_CONN: "MongoDB connection details are missing in runtime config",
 };
+
+export const ROUTE_NAMES_MAP = {
+  index: "Dashboard",
+  inventory: "Inventory Management",
+};
