@@ -1,43 +1,33 @@
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
+import { ERRORS, PUBLIC_ROUTES } from "~/server/constants";
+import { logError } from "~/server/utils/logger";
 
 export default defineEventHandler((event) => {
-  const url = getRequestURL(event).pathname;
-  const method = event.node.req.method;
-
-  console.log(`New request to: ${method} ${url}`);
-
-  // Define public routes that don't require authentication
-  const publicRoutes = ["/api/auth/login", "/api/auth/logout", "/api/register"];
-
-  // Allow public routes to proceed without authentication
-  if (publicRoutes.includes(url)) {
-    return;
-  }
-
-  // Parse cookies from the request header
-  const cookies = cookie.parse(event.node.req.headers.cookie || "");
-  const token = cookies?.auth_token;
-
-  if (!token) {
-    console.error("Invalid token");
-    throw createError({
-      statusCode: 401,
-      message: "Unauthorized",
-    });
-  }
-
   try {
-    // Verify the token using your secret
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!process.env.JWT_SECRET) {
+      logError("JWT_SECRET is not defined in the environment variables");
+      throw new Error(ERRORS.GENERIC);
+    }
 
-    // Attach decoded token to the event context for use in handlers
-    event.context.auth = decoded;
+    const url = getRequestURL(event).pathname;
+
+    // Allow public routes to proceed without authentication
+    if (PUBLIC_ROUTES.includes(url)) return;
+    // Parse cookies from the request header
+    const cookies = cookie.parse(event.node.req.headers.cookie || "");
+    const token = cookies?.auth_token;
+
+    if (!token) throw new Error(ERRORS.NO_TOKEN);
+
+    // Verify the token using your secret
+    jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    console.error(err.message);
+    const message = err.message || ERRORS.UNAUTHORIZED;
+    logError(message);
     throw createError({
       statusCode: 401,
-      message: "Unauthorized",
+      message,
     });
   }
 });

@@ -1,3 +1,5 @@
+import { ERRORS } from "~/server/constants";
+import { logError } from "~/server/utils/logger";
 import { mongo } from "~/server/utils/mongodb";
 
 export default defineEventHandler(async (event) => {
@@ -6,7 +8,7 @@ export default defineEventHandler(async (event) => {
   if (!body.name || !body.quantity || !body.price) {
     throw createError({
       statusCode: 400,
-      statusMessage: "Invalid data. Name, quantity, and price are required.",
+      statusMessage: "Item name, quantity, and price are required",
     });
   }
 
@@ -21,10 +23,11 @@ export default defineEventHandler(async (event) => {
       item: insertedItem,
     };
   } catch (error) {
-    console.error("Failed to insert item:", error);
+    const message = error.message || ERRORS.GENERIC;
+    logError(message);
     throw createError({
       statusCode: 500,
-      statusMessage: "Internal Server Error",
+      statusMessage: message,
     });
   }
 });

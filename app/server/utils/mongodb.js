@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import { ERRORS } from "../constants";
 
 let client;
 let db;
@@ -10,11 +11,7 @@ export const mongo = async () => {
     const uri = config.mongodbUri;
     const databaseName = config.mongodbDatabase;
 
-    if (!uri || !databaseName) {
-      throw new Error(
-        "MongoDB connection details are missing in runtime config"
-      );
-    }
+    if (!uri || !databaseName) throw new Error(ERRORS.DB_CONN);
 
     client = new MongoClient(uri);
     await client.connect();

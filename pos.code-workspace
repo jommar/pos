@@ -5,6 +5,10 @@
       "path": "./app"
     },
     {
+      "name": "logs",
+      "path": "./logs"
+    },
+    {
       "name": "root",
       "path": "."
     }

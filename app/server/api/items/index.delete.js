@@ -1,5 +1,7 @@
 import { mongo } from "~/server/utils/mongodb";
 import { ObjectId } from "mongodb";
+import { logError } from "~/server/utils/logger";
+import { ERRORS } from "~/server/constants";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -32,11 +34,11 @@ export default defineEventHandler(async (event) => {
       ...body,
     };
   } catch (error) {
-    console.error("Failed to delete item:", error);
-
+    const message = error.message || ERRORS.GENERIC;
+    logError(message);
     throw createError({
       statusCode: 500,
-      statusMessage: "Internal Server Error",
+      statusMessage: message,
     });
   }
 });

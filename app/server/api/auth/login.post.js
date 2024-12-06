@@ -1,6 +1,8 @@
 import { mongo } from "~/server/utils/mongodb";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { logError } from "~/server/utils/logger";
+import { ERRORS } from "~/server/constants";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -58,11 +60,11 @@ export default defineEventHandler(async (event) => {
       roles,
     };
   } catch (err) {
-    // Log unexpected errors for debugging
-    console.error(err);
+    const message = err.message || ERRORS.GENERIC;
+    logError(message);
     throw createError({
       statusCode: err.statusCode || 500,
-      message: err.message || "Internal Server Error",
+      message,
     });
   }
 });
