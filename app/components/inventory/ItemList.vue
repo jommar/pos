@@ -44,6 +44,30 @@
               </v-list>
             </v-menu>
           </template>
+          <template #item.priceHistory="{ item }">
+            <v-chip
+              v-for="history in item.priceHistory"
+              :key="`${item._id}-${history.date}`"
+              size="sm"
+              class="mx-1 px-2"
+              color="green-darken-3"
+            >
+              <v-tooltip location="top">
+                <template #activator="{ props }">
+                  <span v-bind="props">
+                    {{ `₱${parseFloat(history.price).toFixed(2)}` }}
+                  </span>
+                </template>
+                <span>
+                  Updated At:
+                  {{ new Date(history.date).toLocaleString() }}
+                </span>
+              </v-tooltip>
+            </v-chip>
+          </template>
+          <template #item.currentPrice="{ item }">
+            <span>₱{{ parseFloat(item.currentPrice).toFixed(2) }}</span>
+          </template>
         </v-data-table>
       </v-card-text>
     </v-card>
@@ -82,8 +106,9 @@ const itemToDelete = ref(null);
 const headers = [
   { title: "Name", value: "name", sortable: true },
   { title: "Quantity", value: "quantity", sortable: true },
-  { title: "Price", value: "price", sortable: true },
-  { title: "Barcode", value: "barcode", sortable: true },
+  { title: "Price", value: "currentPrice", sortable: true },
+  { title: "Price History", value: "priceHistory", sortable: false },
+  { title: "Barcode", value: "barcode", sortable: false },
   { title: "Actions", value: "actions", sortable: false },
 ];
 

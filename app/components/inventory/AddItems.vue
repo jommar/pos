@@ -4,6 +4,11 @@
       <h2>Add New Item</h2>
     </v-card-title>
     <v-card-text>
+      <v-alert type="info" class="mb-4" border="start" variant="outlined">
+        If an item with the same barcode exists, its quantity will be updated,
+        and the price will be updated if it's different. The price change will
+        also be recorded in the item's price history.
+      </v-alert>
       <v-form ref="form" v-model="valid">
         <v-text-field
           v-model="item.name"

@@ -2,7 +2,9 @@
   <v-row justify="center">
     <v-col cols="4">
       <v-card>
-        <v-card-title class="text-h5 text-center">Register</v-card-title>
+        <v-card-title class="text-center">
+          <h2>Register</h2>
+        </v-card-title>
         <v-card-text>
           <v-form v-model="form.valid">
             <v-text-field
