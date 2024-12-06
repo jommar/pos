@@ -113,7 +113,7 @@ const headers = [
 ];
 
 const editItem = (item) => {
-  console.log(item);
+  useRouter().push(`/item/${item._id}`);
 };
 const deleteItem = async (item) => {
   showConfirmDialog.value = true;

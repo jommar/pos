@@ -20,6 +20,7 @@ export const ROUTE_NAMES_MAP = {
   inventory: "Inventory Management",
   settings: "Application Settings and Configuration",
   register: "User Registration and Management",
+  "item-id": "Item Details",
 };
 
 export const USER_ROLES = ["admin", "user"];
