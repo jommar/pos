@@ -16,8 +16,10 @@ export const ERRORS = {
 };
 
 export const ROUTE_NAMES_MAP = {
-  index: "Dashboard",
+  index: "Dashboard Overview",
   inventory: "Inventory Management",
+  settings: "Application Settings and Configuration",
+  register: "User Registration and Management",
 };
 
 export const USER_ROLES = ["admin", "user"];
