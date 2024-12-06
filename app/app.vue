@@ -1,7 +1,7 @@
 <template>
   <v-app class="d-flex flex-column h-100">
     <!-- Header -->
-    <v-app-bar app flat class="bg-primary text-white" v-show="showHeaders">
+    <v-app-bar app flat class="bg-primary text-white" v-if="isLoggedIn">
       <template #default>
         <v-container fluid class="d-flex">
           <NuxtLink to="/" class="text-decoration-none text-white">
@@ -29,10 +29,10 @@
     </v-main>
 
     <!-- Drawer -->
-    <Drawer />
+    <Drawer v-if="isLoggedIn" />
 
     <!-- Footer -->
-    <v-footer app flat class="bg-secondary text-white" v-show="showHeaders">
+    <v-footer app flat class="bg-secondary text-white" v-if="isLoggedIn">
       <template #default>
         <div class="d-flex w-100">
           <v-spacer />
@@ -59,7 +59,7 @@ const toggleDrawer = () => {
   drawerStore.toggle();
 };
 
-const showHeaders = computed(() => {
+const isLoggedIn = computed(() => {
   return useRoute()?.name !== "login";
 });
 
