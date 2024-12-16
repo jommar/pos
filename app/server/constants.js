@@ -5,6 +5,7 @@ export const PUBLIC_ROUTES = [
   "/login",
   "/logout",
   "/register",
+  "/",
 ];
 
 export const ERRORS = {
