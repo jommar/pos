@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "cd app && npm run dev",
-    "db": "docker-compose up -d"
+    "db": "docker-compose up -d",
+    "start:dev": "npm run db && npm run dev"
   }
 }
